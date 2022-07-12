@@ -47,7 +47,7 @@ public class DBmain extends SQLiteOpenHelper {
 
     }
 
-    public boolean insert(int id, String eventTime, String serialNum, String empId, String location,
+    public boolean insert(String eventTime, String serialNum, String empId, String location,
                           String route, String day, String logger, String eventNum, String eventAdditionalDesc,
                           String eventAdditionalNum) {
 
@@ -62,16 +62,17 @@ public class DBmain extends SQLiteOpenHelper {
         //At this point, we know the record is valid, and we can insert.
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("id", id);
         contentValues.put("eventTime", eventTime);
         contentValues.put("serialNum", serialNum);
         contentValues.put("appId", "CPRNT");
         contentValues.put("empId", empId);
+        contentValues.put("location", location);
         contentValues.put("route", route);
         contentValues.put("day", day);
         contentValues.put("logger", logger);
         contentValues.put("eventNum", eventNum);
         contentValues.put("eventAdditionalDesc", eventAdditionalDesc);
+        contentValues.put("eventAdditionalNum", eventAdditionalNum);
 
         db.insert(TABLE, null, contentValues);
         return true;
