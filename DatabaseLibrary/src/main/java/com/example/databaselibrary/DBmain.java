@@ -180,8 +180,9 @@ public class DBmain extends SQLiteOpenHelper {
         //}
     }
 
-    public void deleteAll() {
+    public long deleteAll() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE);
+        return 0;
     }
 }
