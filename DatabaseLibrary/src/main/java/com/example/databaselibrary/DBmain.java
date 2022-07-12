@@ -20,10 +20,10 @@ public class DBmain extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //String query = "create table " + TABLE + "(id integer primary key, fname text, lname text)";
-        String query = "create table " + TABLE + "(id integer PRIMARY KEY, EventTime varchar(17), " +
-                "SerialNumber integer, AppId text DEFAULT 'CPRNT', EmpID text, Location integer(4), " +
-                "Route integer(2), Day varchar(1), Logger text, EventNumber integer, " +
-                "EventAdditionalDesc text, EventAdditionalNum integer)";
+        String query = "create table " + TABLE + "(id integer PRIMARY KEY, EventTime varchar(255), " +
+                "SerialNumber varchar(255), AppId text DEFAULT 'CPRNT', EmpID varchar(255), Location varchar(255), " +
+                "Route varchar(255), Day varchar(255), Logger varchar(255), EventNumber varchar(255), " +
+                "EventAdditionalDesc varchar(255), EventAdditionalNum varchar(255))";
         db.execSQL(query);
     }
 
@@ -40,96 +40,87 @@ public class DBmain extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor getAllData(){
+    public Cursor getAllData() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from loggingTable", null);
         return res;
 
     }
 
-    public boolean insert(int id, String eventTime, int serialNum, String empId, int location,
-                       int route, String day, String logger, int eventNum, String eventAdditionalDesc,
-                       int eventAdditionalNum) {
+    public boolean insert(int id, String eventTime, String serialNum, String empId, String location,
+                          String route, String day, String logger, String eventNum, String eventAdditionalDesc,
+                          String eventAdditionalNum) {
 
         //boolean flag1 = checkEventTimeFormatting(eventTime);
-        boolean flag2 = checkLocationFormatting(location);
-        boolean flag3 = checkRouteFormatting(route);
-        boolean flag4 = checkDayFormatting(day);
-        boolean flag5 = checkEventNumberFormatting(eventNum);
+        //boolean flag2 = checkLocationFormatting(location);
+        //boolean flag3 = checkRouteFormatting(route);
+        //boolean flag4 = checkDayFormatting(day);
+        //boolean flag5 = checkEventNumberFormatting(eventNum);
 
-        if (flag2 && flag3 && flag4 && flag5) {
+        //if (flag2 && flag3 && flag4 && flag5) {
 
-            //At this point, we know the record is valid, and we can insert.
-            SQLiteDatabase db = this.getWritableDatabase();
-            /*ContentValues contentValues = new ContentValues();
-            contentValues.put("id", id);
-            contentValues.put("eventTime", eventTime);
-            contentValues.put("serialNum", serialNum);
-            contentValues.put("appId", "CPRNT");
-            contentValues.put("empId", empId);
-            contentValues.put("route", route);
-            contentValues.put("day", day);
-            contentValues.put("logger", logger);
-            contentValues.put("eventNum", eventNum);
-            contentValues.put("eventAdditionalDesc", eventAdditionalDesc);*/
+        //At this point, we know the record is valid, and we can insert.
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id", id);
+        contentValues.put("eventTime", eventTime);
+        contentValues.put("serialNum", serialNum);
+        contentValues.put("appId", "CPRNT");
+        contentValues.put("empId", empId);
+        contentValues.put("route", route);
+        contentValues.put("day", day);
+        contentValues.put("logger", logger);
+        contentValues.put("eventNum", eventNum);
+        contentValues.put("eventAdditionalDesc", eventAdditionalDesc);
 
-            db.execSQL("insert into " + TABLE + " values(" + id + "," + eventTime + "," + serialNum +
-                    ",CPRNT," + empId + "," + route + "," + day + "," + logger + "," + eventNum + "," +
-                    eventAdditionalDesc + "," + eventAdditionalNum);
-            return true;
-        }
-        else{
-            return false;
-        }
+        db.insert(TABLE, null, contentValues);
+        return true;
     }
 
-    private boolean checkLocationFormatting(int location){
+    private boolean checkLocationFormatting(int location) {
         int length = 0;
         long temp = 1;
-        while (temp <= location && length <= 4){
+        while (temp <= location && length <= 4) {
             length++;
             temp *= 10;
         }
-        if (length == 4){
+        if (length == 4) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    private boolean checkRouteFormatting(int route){
+    private boolean checkRouteFormatting(int route) {
         int length = 0;
         long temp = 1;
-        while (temp <= route && length <= 2){
+        while (temp <= route && length <= 2) {
             length++;
             temp *= 10;
         }
-        if (length == 2){
+        if (length == 2) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    private boolean checkDayFormatting(String day){
+    private boolean checkDayFormatting(String day) {
         if (day.length() == 1 && Character.isLetter(day.charAt(0))) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    private boolean checkEventNumberFormatting(int eventNum){
-        if (eventNum >= 0 && eventNum <= 21){
+    private boolean checkEventNumberFormatting(int eventNum) {
+        if (eventNum >= 0 && eventNum <= 21) {
             return true;
         }
-        if (eventNum >= 23 && eventNum <= 27){
+        if (eventNum >= 23 && eventNum <= 27) {
             return true;
         }
-        switch (eventNum){
+        switch (eventNum) {
             case 30:
                 return true;
             case 32:
@@ -145,54 +136,51 @@ public class DBmain extends SQLiteOpenHelper {
         }
     }
 
-    public boolean removeRecord(int id){
+    public boolean removeRecord(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE, "id=" + id, null);
-        if (result != -1){
+        if (result != -1) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    public boolean updateRecord(int id, String eventTime, int serialNum, String empId, int location,
-                                int route, String day, String logger, int eventNum, String eventAdditionalDesc,
-                                int eventAdditionalNum) {
+    public boolean updateRecord(int id, String eventTime, String serialNum, String empId, String location,
+                                String route, String day, String logger, String eventNum, String eventAdditionalDesc,
+                                String eventAdditionalNum) {
 
-        boolean flag2 = checkLocationFormatting(location);
-        boolean flag3 = checkRouteFormatting(route);
-        boolean flag4 = checkDayFormatting(day);
-        boolean flag5 = checkEventNumberFormatting(eventNum);
+        //boolean flag2 = checkLocationFormatting(location);
+        //boolean flag3 = checkRouteFormatting(route);
+        //boolean flag4 = checkDayFormatting(day);
+        //boolean flag5 = checkEventNumberFormatting(eventNum);
 
-        if (flag2 && flag3 && flag4 && flag5) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("id", id);
-            contentValues.put("eventTime", eventTime);
-            contentValues.put("serialNum", serialNum);
-            contentValues.put("appId", "CPRNT");
-            contentValues.put("empId", empId);
-            contentValues.put("route", route);
-            contentValues.put("day", day);
-            contentValues.put("logger", logger);
-            contentValues.put("eventNum", eventNum);
-            contentValues.put("eventAdditionalDesc", eventAdditionalDesc);
+        //if (flag2 && flag3 && flag4 && flag5) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id", id);
+        contentValues.put("eventTime", eventTime);
+        contentValues.put("serialNum", serialNum);
+        contentValues.put("appId", "CPRNT");
+        contentValues.put("empId", empId);
+        contentValues.put("route", route);
+        contentValues.put("day", day);
+        contentValues.put("logger", logger);
+        contentValues.put("eventNum", eventNum);
+        contentValues.put("eventAdditionalDesc", eventAdditionalDesc);
 
-            SQLiteDatabase db = this.getWritableDatabase();
-            long result = db.update(TABLE, contentValues, "id=" + id, null);
-            if (result != -1){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        else{
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.update(TABLE, contentValues, "id=" + id, null);
+        if (result != -1) {
+            return true;
+        } else {
             return false;
         }
+        //} else {
+        //return false;
+        //}
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE);
     }
