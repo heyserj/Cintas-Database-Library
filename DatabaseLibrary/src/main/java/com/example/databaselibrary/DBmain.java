@@ -42,7 +42,7 @@ public class DBmain extends SQLiteOpenHelper {
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from loggingTable", null);
+        Cursor res = db.rawQuery("select * from " + TABLE, null);
         return res;
 
     }
