@@ -248,7 +248,7 @@ public class DBmain extends SQLiteOpenHelper {
         contentValues.put("EventTime", eventTime);
         contentValues.put("SerialNumber", serialNum);
         contentValues.put("AppId", "CPRNT");
-        contentValues.put("EmpId", empId);
+        contentValues.put("EmpID", empId);
         contentValues.put("Location", location);
         contentValues.put("Route", route);
         contentValues.put("Day", day);
@@ -344,7 +344,7 @@ public class DBmain extends SQLiteOpenHelper {
         contentValues.put("EventTime", eventTime);
         contentValues.put("SerialNumber", serialNum);
         contentValues.put("AppId", "CPRNT");
-        contentValues.put("EmpId", empId);
+        contentValues.put("EmpID", empId);
         contentValues.put("Location", location);
         contentValues.put("Route", route);
         contentValues.put("Day", day);
