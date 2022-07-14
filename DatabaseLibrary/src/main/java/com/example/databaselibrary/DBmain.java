@@ -193,7 +193,7 @@ import androidx.annotation.Nullable;
 
 public class DBmain extends SQLiteOpenHelper {
     private static final String DBNAME = "loggingDB";
-    private static final String TABLE = "loggingTable";
+    private static final String TABLE = "loggingTable2";
     private static final int VER = 1;
 
     public DBmain(@Nullable Context context) {
@@ -219,7 +219,7 @@ public class DBmain extends SQLiteOpenHelper {
 
     public Cursor getData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from loggingTable where id=" + id + "", null);
+        Cursor res = db.rawQuery("select * from loggingTable2 where id=" + id + "", null);
         return res;
     }
 
@@ -257,8 +257,14 @@ public class DBmain extends SQLiteOpenHelper {
         contentValues.put("EventAdditionalDesc", eventAdditionalDesc);
         contentValues.put("EventAdditionalNum", eventAdditionalNum);*/
 
-        db.insert(TABLE, null, contentValues);
-        return true;
+        long temp = db.insert(TABLE, null, contentValues);
+        if (temp != -1){
+            return true;
+        }
+        else{
+            return false;
+        }
+        //return true;
     }
 
     private boolean checkLocationFormatting(int location) {
