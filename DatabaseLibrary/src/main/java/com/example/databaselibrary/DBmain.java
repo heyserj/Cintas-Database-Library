@@ -47,7 +47,7 @@ public class DBmain extends SQLiteOpenHelper {
 
     }
 
-    public boolean insert(String eventTime, String serialNum, String empId, String location,
+    public long insert(String eventTime, String serialNum, String empId, String location,
                           String route, String day, String logger, String eventNum, String eventAdditionalDesc,
                           String eventAdditionalNum) {
 
@@ -74,8 +74,8 @@ public class DBmain extends SQLiteOpenHelper {
         contentValues.put("EventAdditionalDesc", eventAdditionalDesc);
         contentValues.put("EventAdditionalNum", eventAdditionalNum);
 
-        db.insert(TABLE, null, contentValues);
-        return true;
+        long result = db.insert(TABLE, null, contentValues);
+        return result;
     }
 
     private boolean checkLocationFormatting(int location) {
