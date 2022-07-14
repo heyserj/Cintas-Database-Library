@@ -20,10 +20,10 @@ public class DBmain extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //String query = "create table " + TABLE + "(id integer primary key, fname text, lname text)";
-        String query = "create table " + TABLE + "(id integer PRIMARY KEY, EventTime varchar(255), " +
-                "SerialNumber varchar(255), AppId text DEFAULT 'CPRNT', EmpID varchar(255), Location varchar(255), " +
-                "Route varchar(255), Day varchar(255), Logger varchar(255), EventNumber varchar(255), " +
-                "EventAdditionalDesc varchar(255), EventAdditionalNum varchar(255))";
+        String query = "create table " + TABLE + "(id integer primary key, EventTime text, " +
+                "SerialNumber text, AppId text default 'CPRNT', EmpID text, Location text, " +
+                "Route text, Day text, Logger text, EventNumber text, " +
+                "EventAdditionalDesc text, EventAdditionalNum text)";
         db.execSQL(query);
     }
 
@@ -62,17 +62,17 @@ public class DBmain extends SQLiteOpenHelper {
         //At this point, we know the record is valid, and we can insert.
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("eventTime", eventTime);
-        contentValues.put("serialNum", serialNum);
-        contentValues.put("appId", "CPRNT");
-        contentValues.put("empId", empId);
-        contentValues.put("location", location);
-        contentValues.put("route", route);
-        contentValues.put("day", day);
-        contentValues.put("logger", logger);
-        contentValues.put("eventNum", eventNum);
-        contentValues.put("eventAdditionalDesc", eventAdditionalDesc);
-        contentValues.put("eventAdditionalNum", eventAdditionalNum);
+        contentValues.put("EventTime", eventTime);
+        contentValues.put("SerialNumber", serialNum);
+        contentValues.put("AppId", "CPRNT");
+        contentValues.put("EmpId", empId);
+        contentValues.put("Location", location);
+        contentValues.put("Route", route);
+        contentValues.put("Day", day);
+        contentValues.put("Logger", logger);
+        contentValues.put("EventNumber", eventNum);
+        contentValues.put("EventAdditionalDesc", eventAdditionalDesc);
+        contentValues.put("EventAdditionalNum", eventAdditionalNum);
 
         db.insert(TABLE, null, contentValues);
         return true;
@@ -158,16 +158,17 @@ public class DBmain extends SQLiteOpenHelper {
 
         //if (flag2 && flag3 && flag4 && flag5) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put("id", id);
-        contentValues.put("eventTime", eventTime);
-        contentValues.put("serialNum", serialNum);
-        contentValues.put("appId", "CPRNT");
-        contentValues.put("empId", empId);
-        contentValues.put("route", route);
-        contentValues.put("day", day);
-        contentValues.put("logger", logger);
-        contentValues.put("eventNum", eventNum);
-        contentValues.put("eventAdditionalDesc", eventAdditionalDesc);
+        contentValues.put("EventTime", eventTime);
+        contentValues.put("SerialNumber", serialNum);
+        contentValues.put("AppId", "CPRNT");
+        contentValues.put("EmpId", empId);
+        contentValues.put("Location", location);
+        contentValues.put("Route", route);
+        contentValues.put("Day", day);
+        contentValues.put("Logger", logger);
+        contentValues.put("EventNumber", eventNum);
+        contentValues.put("EventAdditionalDesc", eventAdditionalDesc);
+        contentValues.put("EventAdditionalNum", eventAdditionalNum);
 
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.update(TABLE, contentValues, "id=" + id, null);
@@ -176,14 +177,5 @@ public class DBmain extends SQLiteOpenHelper {
         } else {
             return false;
         }
-        //} else {
-        //return false;
-        //}
-    }
-
-    public long deleteAll() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from " + TABLE);
-        return 0;
     }
 }
