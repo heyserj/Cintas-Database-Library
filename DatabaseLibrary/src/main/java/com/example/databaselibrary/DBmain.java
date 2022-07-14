@@ -20,10 +20,10 @@ public class DBmain extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //String query = "create table " + TABLE + "(id integer primary key, fname text, lname text)";
-        String query = "create table " + TABLE + "(id integer primary key, 'Event Time' text, " +
-                "'UUID (Serial Number)' text, AppId text default 'CPRNT', EmpID text, Location text, " +
-                "Route text, Day text, Logger text, 'Event Number' text, " +
-                "'Event Additional Description' text, 'Event Additional Number' text)";
+        String query = "create table " + TABLE + "(id integer primary key, EventTime text, " +
+                "SerialNumber text, AppId text default 'CPRNT', EmpID text, Location text, " +
+                "Route text, Day text, Logger text, EventNumber text, " +
+                "EventAdditionalDesc text, EventAdditionalNum text)";
         db.execSQL(query);
     }
 
@@ -62,17 +62,17 @@ public class DBmain extends SQLiteOpenHelper {
         //At this point, we know the record is valid, and we can insert.
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("Event Time", eventTime);
-        contentValues.put("UUID (Serial Number)", serialNum);
+        contentValues.put("EventTime", eventTime);
+        contentValues.put("SerialNumber", serialNum);
         contentValues.put("AppId", "CPRNT");
         contentValues.put("EmpId", empId);
         contentValues.put("Location", location);
         contentValues.put("Route", route);
         contentValues.put("Day", day);
         contentValues.put("Logger", logger);
-        contentValues.put("Event Number", eventNum);
-        contentValues.put("Event Additional Description", eventAdditionalDesc);
-        contentValues.put("Event Additional Number", eventAdditionalNum);
+        contentValues.put("EventNumber", eventNum);
+        contentValues.put("EventAdditionalDesc", eventAdditionalDesc);
+        contentValues.put("EventAdditionalNum", eventAdditionalNum);
 
         db.insert(TABLE, null, contentValues);
         return true;
@@ -158,17 +158,17 @@ public class DBmain extends SQLiteOpenHelper {
 
         //if (flag2 && flag3 && flag4 && flag5) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put("Event Time", eventTime);
-        contentValues.put("UUID (Serial Number)", serialNum);
+        contentValues.put("EventTime", eventTime);
+        contentValues.put("SerialNumber", serialNum);
         contentValues.put("AppId", "CPRNT");
         contentValues.put("EmpId", empId);
         contentValues.put("Location", location);
         contentValues.put("Route", route);
         contentValues.put("Day", day);
         contentValues.put("Logger", logger);
-        contentValues.put("Event Number", eventNum);
-        contentValues.put("Event Additional Description", eventAdditionalDesc);
-        contentValues.put("Event Additional Number", eventAdditionalNum);
+        contentValues.put("EventNumber", eventNum);
+        contentValues.put("EventAdditionalDesc", eventAdditionalDesc);
+        contentValues.put("EventAdditionalNum", eventAdditionalNum);
 
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.update(TABLE, contentValues, "id=" + id, null);
