@@ -204,9 +204,9 @@ public class DBmain extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //String query = "create table " + TABLE + "(id integer primary key, fname text, lname text)";
         String query = "create table " + TABLE + "(id integer primary key, EventTime text, " +
-                "SerialNumber text, AppId text default 'CPRNT', EmpID text, Location text, " +
-                "Route text, Day text, Logger text, EventNumber text, " +
-                "EventAdditionalDesc text, EventAdditionalNum text)";
+                "SerialNumber text, AppId text default 'CPRNT', EmpID text, Location integer(4), " +
+                "Route integer(2), Day varchar(1), Logger text, EventNumber integer, " +
+                "EventAdditionalDesc text, EventAdditionalNum integer)";
         db.execSQL(query);
     }
 
@@ -230,9 +230,9 @@ public class DBmain extends SQLiteOpenHelper {
 
     }
 
-    public boolean insert(String eventTime, String serialNum, String empId, String location,
-                          String route, String day, String logger, String eventNum, String eventAdditionalDesc,
-                          String eventAdditionalNum) {
+    public boolean insert(String eventTime, String serialNum, String empId, int location,
+                          int route, String day, String logger, int eventNum, String eventAdditionalDesc,
+                          int eventAdditionalNum) {
 
         //boolean flag1 = checkEventTimeFormatting(eventTime);
         //boolean flag2 = checkLocationFormatting(location);
@@ -336,9 +336,9 @@ public class DBmain extends SQLiteOpenHelper {
         }
     }
 
-    public boolean updateRecord(int id, String eventTime, String serialNum, String empId, String location,
-                                String route, String day, String logger, String eventNum, String eventAdditionalDesc,
-                                String eventAdditionalNum) {
+    public boolean updateRecord(int id, String eventTime, String serialNum, String empId, int location,
+                                int route, String day, String logger, int eventNum, String eventAdditionalDesc,
+                                int eventAdditionalNum) {
 
         //boolean flag2 = checkLocationFormatting(location);
         //boolean flag3 = checkRouteFormatting(route);
