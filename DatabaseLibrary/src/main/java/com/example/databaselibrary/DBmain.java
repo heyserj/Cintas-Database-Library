@@ -205,7 +205,7 @@ public class DBmain extends SQLiteOpenHelper {
         //String query = "create table " + TABLE + "(id integer primary key, fname text, lname text)";
         String query = "create table " + TABLE + "(id integer primary key, EventTime text, " +
                 "SerialNumber text, AppId text default 'CPRNT', EmpID text, Location integer(4), " +
-                "Route integer(2), Day varchar(1), Logger text, EventNumber integer, " +
+                "Route integer(2), Day text(1), Logger text, EventNumber integer, " +
                 "EventAdditionalDesc text, EventAdditionalNum integer)";
         db.execSQL(query);
     }
