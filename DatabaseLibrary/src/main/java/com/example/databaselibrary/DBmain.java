@@ -113,6 +113,16 @@ public class DBmain extends SQLiteOpenHelper {
         }
     }
 
+    public boolean removeAll(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE, null, null);
+        if (result != -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean updateRecord(int id, String eventTime, String serialNum, String empId, int location,
                                 int route, int day, String logger, int eventNum, String eventAdditionalDesc,
                                 int eventAdditionalNum) {
