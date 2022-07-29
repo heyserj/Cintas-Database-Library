@@ -156,17 +156,18 @@ public class DBmain extends SQLiteOpenHelper {
         }
     }
 
-    public int verifyLoginInfo(String email, String password){
+        public Cursor verifyLoginInfo(String email, String password){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE2 + " where Email=" + email + "" +
                 " and Password=" + password + "", null);
-        if (res.getCount() == 0){
+        return res;
+        /*if (res.getCount() == 0){
             return -1; //the email/password combination entered by the user is not valid
         }
         else{
             res.moveToFirst();
             return res.getInt(0);
-        }
+        }*/
     }
 
     public String getName(int id){
