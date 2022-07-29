@@ -172,4 +172,10 @@ public class DBmain extends SQLiteOpenHelper {
         res.moveToFirst();
         return res.getString(1);
     }
+
+    public Cursor getAllUserData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE2, null);
+        return res;
+    }
 }
