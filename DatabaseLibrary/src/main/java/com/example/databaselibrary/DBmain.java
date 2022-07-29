@@ -159,7 +159,7 @@ public class DBmain extends SQLiteOpenHelper {
         public Cursor verifyLoginInfo(String email, String password){
         SQLiteDatabase db = this.getReadableDatabase();
         //Cursor res = db.rawQuery("select * from " + TABLE2 + " where Email=" + email + "", null);
-            Cursor res = db.rawQuery("select * from " + TABLE2 + " where Email=" + email, null);
+            Cursor res = db.rawQuery("select * from " + TABLE2 + " where Email=" + email + "", null);
         return res;
         /*if (res.getCount() == 0){
             return -1; //the email/password combination entered by the user is not valid
