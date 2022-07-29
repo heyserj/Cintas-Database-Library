@@ -50,7 +50,6 @@ public class DBmain extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE1, null);
         return res;
-
     }
 
     public boolean insert(String eventTime, String serialNum, String empId, int location,
@@ -72,10 +71,9 @@ public class DBmain extends SQLiteOpenHelper {
         contentValues.put("EventAdditionalNum", eventAdditionalNum);
 
         long temp = db.insert(TABLE1, null, contentValues);
-        if (temp != -1){
+        if (temp != -1) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -90,7 +88,7 @@ public class DBmain extends SQLiteOpenHelper {
         }
     }
 
-    public void removeAll(){
+    public void removeAll() {
         SQLiteDatabase db = this.getWritableDatabase();
         int result = db.delete(TABLE1, null, null);
     }
@@ -122,7 +120,7 @@ public class DBmain extends SQLiteOpenHelper {
     }
 
     public boolean insertUserDetails(String name, String email, String password, String dateOfBirth,
-        String gender){
+                                     String gender) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -133,33 +131,31 @@ public class DBmain extends SQLiteOpenHelper {
         contentValues.put("Gender", gender);
 
         long temp = db.insert(TABLE2, null, contentValues);
-        if (temp != -1){
+        if (temp != -1) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    public boolean insertAppDetails(String eventTime, String eventDescription){
+    public boolean insertAppDetails(String eventTime, String eventDescription) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("EventTime", eventTime);
         contentValues.put("EventDesc", eventDescription);
 
         long temp = db.insert(TABLE3, null, contentValues);
-        if (temp != -1){
+        if (temp != -1) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-        public Cursor verifyLoginInfo(String email, String password){
+    public Cursor verifyLoginInfo(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         //Cursor res = db.rawQuery("select * from " + TABLE2 + " where Email=" + email + "", null);
-            Cursor res = db.rawQuery("select * from " + TABLE2 + " where Email=" + email + "", null);
+        Cursor res = db.rawQuery("select * from " + TABLE2 + " where Password=" + password + "", null);
         return res;
         /*if (res.getCount() == 0){
             return -1; //the email/password combination entered by the user is not valid
@@ -170,7 +166,7 @@ public class DBmain extends SQLiteOpenHelper {
         }*/
     }
 
-    public String getName(int id){
+    public String getName(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE2 + " where id=" + id + "", null);
         res.moveToFirst();
