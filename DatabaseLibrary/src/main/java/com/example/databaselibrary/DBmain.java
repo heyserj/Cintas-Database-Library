@@ -159,8 +159,8 @@ public class DBmain extends SQLiteOpenHelper {
             while (cursor.moveToNext()){
                 String currentEmail = cursor.getString(2);
                 String currentPassword = cursor.getString(3);
-                if (currentEmail.equals(email) && currentPassword.equals(password)){
-                    String name = getName(cursor.getInt(0));
+                if ((currentEmail == email) && (currentPassword == password)){
+                    String name = cursor.getString(1);
                     if (name == null){
                         return "";
                     }
@@ -170,13 +170,6 @@ public class DBmain extends SQLiteOpenHelper {
             return null;
         }
         return null;
-    }
-
-    public String getName(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE2 + " where id=" + id + "", null);
-        res.moveToFirst();
-        return res.getString(1);
     }
 
     public Cursor getAllUserData(){
