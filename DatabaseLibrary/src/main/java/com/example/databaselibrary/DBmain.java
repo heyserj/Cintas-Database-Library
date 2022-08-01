@@ -161,6 +161,9 @@ public class DBmain extends SQLiteOpenHelper {
                 String currentPassword = cursor.getString(3);
                 if (currentEmail.equals(email) && currentPassword.equals(password)){
                     String name = getName(cursor.getInt(0));
+                    if (name == null){
+                        return "";
+                    }
                     return name;
                 }
             }
